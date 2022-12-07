@@ -241,6 +241,7 @@ public:
         {
             _intro = false;
             DespawnMinionsAndFlames();
+            _scheduler.CancelAll();
         }
 
     private:
