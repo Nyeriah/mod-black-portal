@@ -110,21 +110,7 @@ public:
                     if (!me->IsInCombat())
                     {
                         Talk(SAY_DESPAWN);
-                        for (ObjectGuid guid : _minionGuids)
-                        {
-                            if (Creature* minion = ObjectAccessor::GetCreature(*me, guid))
-                            {
-                                minion->DespawnOrUnsummon();
-                            }
-                        }
-
-                        for (ObjectGuid guid : _gobGuids)
-                        {
-                            if (GameObject* flames = ObjectAccessor::GetGameObject(*me, guid))
-                            {
-                                flames->DespawnOrUnsummon();
-                            }
-                        }
+                        DespawnMinionsAndFlames();
                     }
                     else
                     {
@@ -142,6 +128,25 @@ public:
                     me->SummonCreature(NPC_INFERNAL_HOUND, me->GetRandomNearPosition(15.0f), TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 5 * MINUTE * IN_MILLISECONDS);
                     context.Repeat(1min);
                 });
+            }
+        }
+
+        void DespawnMinionsAndFlames()
+        {
+            for (ObjectGuid guid : _minionGuids)
+            {
+                if (Creature* minion = ObjectAccessor::GetCreature(*me, guid))
+                {
+                    minion->DespawnOrUnsummon();
+                }
+            }
+
+            for (ObjectGuid guid : _gobGuids)
+            {
+                if (GameObject* flames = ObjectAccessor::GetGameObject(*me, guid))
+                {
+                    flames->DespawnOrUnsummon();
+                }
             }
         }
 
@@ -235,6 +240,7 @@ public:
         void JustDied(Unit* /*killer*/) override
         {
             _intro = false;
+            DespawnMinionsAndFlames();
         }
 
     private:
