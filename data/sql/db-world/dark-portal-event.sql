@@ -19,3 +19,9 @@ INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Lan
 (192880, 4, 0, 'ENOUGH! I grow tired of those petty tricks. It\'s time you witness the might of the Burning Legion!', 14, 0, 100, 0, 0, 0, 0, 0, 'Dovanath - Just Killed'),
 (192880, 5, 0, 'UNTHINKABLE! Pathetic mortals! My demise accomplishes nothing! The Burning Legion will engulf your world in fel flames!', 14, 0, 0, 100, 0, 0, 0, 0, 'Dovanath - Just Died');
 
+DELETE FROM `creature` WHERE `guid` IN (3800534, 3800522, 3800521, 3800523);
+INSERT INTO `creature` (`guid`, `id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) VALUES
+('3800534','18966','0','0','0','0','0','1','1','1','-11842.9','-3210.99','-29.4737','2.55352','300','0','0','111780','47325','0','0','0','0','',NULL),
+('3800522','18969','0','0','0','0','0','1','1','1','-11839.8','-3189.39','-29.4783','4.62059','300','0','0','111780','47325','0','0','0','0','',NULL),
+('3800521','19385','0','0','0','0','0','1','1','1','-11839.5','-3201.4','-29.8483','0.133875','300','0','0','69860','0','0','0','0','0','',NULL),
+('3800523','19942','0','0','0','0','0','1','1','1','-11839.4','-3218.15','-29.7824','1.98715','300','0','0','5228','0','0','0','0','0','',NULL);
