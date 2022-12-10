@@ -19,7 +19,7 @@ INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Lan
 (192880, 3, 2, 'None shall oppose the Burning Legion\'s plans!', 14, 0, 100, 0, 0, 0, 0, 0, 'Dovanath - Just Killed'),
 (192880, 3, 3, 'Failure, as expected!', 14, 0, 100, 0, 0, 0, 0, 0, 'Dovanath - Just Killed'),
 (192880, 4, 0, 'ENOUGH! I grow tired of those petty tricks. It\'s time you witness the might of the Burning Legion!', 14, 0, 100, 0, 0, 0, 0, 0, 'Dovanath - Just Killed'),
-(192880, 5, 0, 'UNTHINKABLE! Pathetic mortals! My demise accomplishes nothing! The Burning Legion will engulf your world in fel flames!', 14, 0, 0, 100, 0, 0, 0, 0, 'Dovanath - Just Died');
+(192880, 5, 0, 'UNTHINKABLE! Pathetic mortals! My demise accomplishes nothing! The Burning Legion will engulf your world in fel flames!', 14, 0, 100, 0, 0, 0, 0, 0, 'Dovanath - Just Died');
 
 DELETE FROM `creature` WHERE `guid` IN (3800534, 3800522, 3800521, 3800523);
 INSERT INTO `creature` (`guid`, `id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) VALUES
