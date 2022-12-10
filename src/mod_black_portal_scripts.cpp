@@ -311,19 +311,24 @@ public:
 
     struct npc_marshal_raynorAI : public ScriptedAI
     {
-        npc_marshal_raynorAI(Creature* creature) : ScriptedAI(creature) { }
+        npc_marshal_raynorAI(Creature* creature) : ScriptedAI(creature), _scheduledText(false) { }
 
-        void JustRespawned() override
+        void Reset() override
         {
-            _scheduler.Schedule(5s, [this](TaskContext context)
+            if (!_scheduledText)
             {
-                if (!me->IsInCombat())
+                _scheduler.Schedule(5s, [this](TaskContext context)
                 {
-                    Talk(SAY_RAYNOR_RANDOM);
-                }
+                    if (!me->IsInCombat())
+                    {
+                        Talk(SAY_RAYNOR_RANDOM);
+                    }
 
-                context.Repeat(1min, 5min);
-            });
+                    context.Repeat(1min, 5min);
+                });
+
+                _scheduledText = true;
+            }
         }
 
         void EnterCombat(Unit* /*who*/) override
@@ -684,6 +689,7 @@ public:
         uint32 _deadMinionCounter;
         uint8 _dreadknightCounter;
         bool _bossSpawned{ false };
+        bool _scheduledText{ false };
         GuidSet _summonGuids;
     };
 
