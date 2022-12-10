@@ -299,7 +299,7 @@ enum BlackportalEvent
 
 enum BlackportalSpells
 {
-    SPELL_BP_CLEAVE       = 15284,
+    SPELL_BP_CLEAVE       = 20684,
     SPELL_INFERNAL_RAIN   = 32785,
     SPELL_GREATER_MIGHT   = 33564,
 };
