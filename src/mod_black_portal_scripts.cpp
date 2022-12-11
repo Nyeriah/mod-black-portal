@@ -270,6 +270,7 @@ enum BlackportalEvent
     NPC_AZUREMYST_VINDICATOR = 19407,
     NPC_ARGENT_HUNTER        = 19366,
     NPC_ARGENT_BOWSMAN       = 19365,
+    NPC_STORMWIND_MARSHAL    = 19386,
 
     NPC_JUSTINIUS            = 18966,
     NPC_MELGROMM             = 18969,
@@ -389,9 +390,6 @@ public:
 
                 Position const _argentProtectorPositions[16] =
                 {
-                    { -11810.923828f, -3201.016846f, -29.976776f, 3.538312f },
-                    { -11809.618164f, -3203.834473f, -29.247328f, 3.348245f },
-                    { -11808.666992f, -3206.407227f, -29.388878f, 3.431497f },
                     { -11805.366211f, -3198.688721f, -29.207794f, 3.538312f },
                     { -11803.918945f, -3201.932617f, -28.675598f, 3.543025f },
                     { -11802.583984f, -3204.756836f, -28.891459f, 3.457416f },
@@ -401,6 +399,14 @@ public:
                     { -11832.734375f, -3204.129883f, -30.501616f, 3.132202f },
                     { -11832.288086f, -3199.888916f, -30.269533f, 3.198176f },
                     { -11832.259766f, -3196.820801f, -30.171431f, 3.247656f },
+
+                };
+
+                Position const _stormwindMarshals[6] =
+                {
+                    { -11810.923828f, -3201.016846f, -29.976776f, 3.538312f },
+                    { -11809.618164f, -3203.834473f, -29.247328f, 3.348245f },
+                    { -11808.666992f, -3206.407227f, -29.388878f, 3.431497f },
                     { -11834.820312f, -3203.186523f, -30.302736f, 3.144305f },
                     { -11835.124023f, -3199.776855f, -30.081173f, 3.213420f },
                     { -11834.855469f, -3196.740723f, -30.022821f, 3.156872f }
@@ -449,6 +455,11 @@ public:
                 for (Position const pos : _argentProtectorPositions)
                 {
                     me->SummonCreature(NPC_ARGENT_PROTECTOR, pos);
+                }
+
+                for (Position const pos : _stormwindMarshals)
+                {
+                    me->SummonCreature(NPC_STORMWIND_MARSHAL, pos);
                 }
 
                 for (Position const pos : _thunderbluffHunters)
@@ -624,6 +635,7 @@ public:
                 case NPC_AZUREMYST_VINDICATOR:
                 case NPC_ARGENT_BOWSMAN:
                 case NPC_ARGENT_HUNTER:
+                case NPC_STORMWIND_MARSHAL:
                 {
                     ObjectGuid guid = summon->GetGUID();
                     _scheduler.Schedule(5s, [this, guid](TaskContext /*context*/)
