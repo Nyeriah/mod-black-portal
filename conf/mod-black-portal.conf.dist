@@ -15,3 +15,11 @@
 #
 
 ModBlackPortal.Enable = 1
+
+#    ModBlackPortal.EnablePostEvent
+#        Description: Enables demons to pour from the Dark Portal periodically.
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+
+ModBlackPortal.EnablePostEvent = 0

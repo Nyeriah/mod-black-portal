@@ -330,6 +330,11 @@ public:
                 });
 
                 _scheduledText = true;
+
+                if (sConfigMgr->GetOption<bool>("ModBlackPortal.EnablePostEvent", false))
+                {
+                    SetData(ACTION_START_POST_EVENT, 0);
+                }
             }
         }
 
@@ -354,6 +359,7 @@ public:
                 me->SetVisible(false);
                 me->RemoveAllAuras();
                 me->CombatStop();
+                me->SetFullHealth();
 
                 _scheduler.Schedule(30s, [this](TaskContext context)
                 {
