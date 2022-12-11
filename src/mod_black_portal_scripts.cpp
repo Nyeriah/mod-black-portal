@@ -723,13 +723,15 @@ public:
                         justinius->SetUnitFlag(UNIT_FLAG_IMMUNE_TO_NPC);
                         justinius->CombatStop();
                         justinius->GetMotionMaster()->MovePoint(0, Position(-11891.429688f, -3214.041260f, -14.628236f, 0.164177f));
+                        justinius->DespawnOrUnsummon(60000);
                     }
 
-                    if (Creature* justinius = me->FindNearestCreature(NPC_MELGROMM, 500.0f))
+                    if (Creature* melgromm = me->FindNearestCreature(NPC_MELGROMM, 500.0f))
                     {
-                        justinius->SetUnitFlag(UNIT_FLAG_IMMUNE_TO_NPC);
-                        justinius->CombatStop();
-                        justinius->GetMotionMaster()->MovePoint(0, Position(-11892.669922f, -3199.839111f, -14.652026f, 0.117053f));
+                        melgromm->SetUnitFlag(UNIT_FLAG_IMMUNE_TO_NPC);
+                        melgromm->CombatStop();
+                        melgromm->GetMotionMaster()->MovePoint(0, Position(-11892.669922f, -3199.839111f, -14.652026f, 0.117053f));
+                        melgromm->DespawnOrUnsummon(60000);
                     }
                     return;
             }
