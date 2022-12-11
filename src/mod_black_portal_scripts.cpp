@@ -484,7 +484,7 @@ public:
                 SetData(ACTION_RESET, 0);
                 SummonFriendlyNPCs();
 
-                _scheduler.Schedule(10s, [this](TaskContext context)
+                _scheduler.Schedule(30s, [this](TaskContext context)
                 {
                     SummonPortalDemon(NPC_INVADING_FELGUARD, 0);
                     SummonPortalDemon(NPC_INVADING_FELGUARD, 1);
@@ -492,7 +492,7 @@ public:
                     context.Repeat();
                 });
 
-                _scheduler.Schedule(18s, [this](TaskContext context)
+                _scheduler.Schedule(38s, [this](TaskContext context)
                 {
                     if (roll_chance_i(50))
                     {
@@ -508,7 +508,7 @@ public:
                     context.Repeat();
                 });
 
-                _scheduler.Schedule(30s, [this](TaskContext context)
+                _scheduler.Schedule(45s, [this](TaskContext context)
                 {
                     SummonPortalDemon(NPC_INVADING_ANGUISHER, 0);
                     SummonPortalDemon(NPC_INVADING_ANGUISHER, 1);

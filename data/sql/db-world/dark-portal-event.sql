@@ -29,5 +29,3 @@ INSERT INTO `creature` (`guid`, `id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, 
 ('3800523','19942','0','0','0','0','0','1','1','1','-11839.4','-3218.15','-29.7824','1.98715','300','0','0','5228','0','0','0','0','0','',NULL);
 
 UPDATE `creature_template` SET `flags_extra` = `flags_extra` |2097152 WHERE `entry` = 19284;
-
-UPDATE `creature_template` SET `HealthModifier` = `HealthModifier` * 2 WHERE `entry` IN (19284, 19286, 19287, 19290, 19285, 19391, 19288, 19311);
