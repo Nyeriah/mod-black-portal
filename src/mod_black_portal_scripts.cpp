@@ -290,6 +290,7 @@ enum BlackportalEvent
     ACTION_START_EVENT = 1,
     ACTION_RESET       = 2,
     ACTION_INFERNAL_STORM = 3,
+    ACTION_START_POST_EVENT = 4,
 
     GROUP_COMBAT       = 1,
 
@@ -386,100 +387,9 @@ public:
                 _dreadknightCounter = 0;
                 _bossSpawned = false;
 
+                SummonFriendlyNPCs();
+
                 Talk(SAY_START_EVENT);
-
-                Position const _argentProtectorPositions[9] =
-                {
-                    { -11808.666992f, -3206.407227f, -29.388878f, 3.431497f },
-                    { -11809.618164f, -3203.834473f, -29.247328f, 3.348245f },
-                    { -11810.923828f, -3201.016846f, -29.976776f, 3.538312f },
-                    { -11797.455078f, -3203.081055f, -28.437138f, 3.457416f },
-                    { -11798.879883f, -3199.793701f, -28.107952f, 3.543025f },
-                    { -11800.028320f, -3196.452637f, -28.509819f, 3.538312f },
-                    { -11805.366211f, -3198.688721f, -29.207794f, 3.538312f },
-                    { -11803.918945f, -3201.932617f, -28.675598f, 3.543025f },
-                    { -11802.583984f, -3204.756836f, -28.891459f, 3.457416f },
-                };
-
-                Position const _stormwindMarshals[6] =
-                {
-                    { -11832.259766f, -3196.820801f, -30.171431f, 3.247656f },
-                    { -11832.734375f, -3204.129883f, -30.501616f, 3.132202f },
-                    { -11832.288086f, -3199.888916f, -30.269533f, 3.198176f },
-                    { -11835.124023f, -3199.776855f, -30.081173f, 3.213420f },
-                    { -11834.855469f, -3196.740723f, -30.022821f, 3.156872f },
-                    { -11834.820312f, -3203.186523f, -30.302736f, 3.144305f },
-                };
-
-                Position const _thunderbluffHunters[6] =
-                {
-                    { -11843.174805f, -3176.412598f, -28.853539f, 5.226863f },
-                    { -11850.358398f, -3176.458496f, -28.090700f, 4.995171f },
-                    { -11855.361328f, -3176.151611f, -27.311512f, 5.097272f },
-                    { -11840.394531f, -3170.019287f, -29.219015f, 4.629200f },
-                    { -11848.649414f, -3169.063477f, -28.248203f, 4.783135f },
-                    { -11855.245117f, -3166.247803f, -27.773533f, 4.892200f }
-                };
-
-                Position const _azuremystVindicatorPos[6] =
-                {
-                    { -11852.507812f, -3230.814941f, -25.037802f, 1.870232f },
-                    { -11848.397461f, -3229.869629f, -25.696739f, 1.501095f },
-                    { -11843.356445f, -3229.766113f, -26.406046f, 1.660531f },
-                    { -11842.769531f, -3236.298584f, -25.826141f, 1.660531f },
-                    { -11848.006836f, -3235.759766f, -25.197475f, 1.596914f },
-                    { -11854.534180f, -3234.660645f, -24.871737f, 1.314171f }
-                };
-
-                Position const _argentHunter[6] =
-                {
-                    { -11823.658203f, -3186.115479f, -30.234430f, 3.629969f },
-                    { -11825.404297f, -3183.600830f, -29.367455f, 3.649604f },
-                    { -11827.452148f, -3181.226807f, -29.720917f, 3.698299f },
-                    { -11824.925781f, -3168.900391f, -30.088284f, 4.053295f },
-                    { -11827.259766f, -3166.896240f, -30.524405f, 4.057221f },
-                    { -11829.310547f, -3165.329834f, -30.430052f, 4.057221f }
-                };
-
-                Position const _argentBowsman[6] =
-                {
-                    { -11822.590820f, -3202.611816f, -31.032156f, 3.263978f },
-                    { -11822.884766f, -3199.638184f, -30.985357f, 3.256124f },
-                    { -11823.301758f, -3196.711182f, -30.834106f, 3.256124f },
-                    { -11819.934570f, -3220.567383f, -31.033857f, 2.770744f },
-                    { -11818.669922f, -3218.126953f, -31.196154f, 2.832006f },
-                    { -11818.377930f, -3215.409668f, -31.301699f, 2.847713f }
-                };
-
-                for (Position const pos : _argentProtectorPositions)
-                {
-                    me->SummonCreature(NPC_ARGENT_PROTECTOR, pos);
-                }
-
-                for (Position const pos : _stormwindMarshals)
-                {
-                    me->SummonCreature(NPC_STORMWIND_MARSHAL, pos);
-                }
-
-                for (Position const pos : _thunderbluffHunters)
-                {
-                    me->SummonCreature(NPC_THUNDERBLUFF_HUNTER, pos);
-                }
-
-                for (Position const pos : _azuremystVindicatorPos)
-                {
-                    me->SummonCreature(NPC_AZUREMYST_VINDICATOR, pos);
-                }
-
-                for (Position const pos : _argentHunter)
-                {
-                    me->SummonCreature(NPC_ARGENT_HUNTER, pos);
-                }
-
-                for (Position const pos : _argentBowsman)
-                {
-                    me->SummonCreature(NPC_ARGENT_BOWSMAN, pos);
-                }
 
                 _scheduler.Schedule(5s, [this](TaskContext context)
                 {
@@ -569,6 +479,58 @@ public:
                     SummonInfernalRain(_infernalTriggerPos[i], _infernalDestPos[i]);
                 }
             }
+            else if (data == ACTION_START_POST_EVENT)
+            {
+                SetData(ACTION_RESET, 0);
+                SummonFriendlyNPCs();
+
+                _scheduler.Schedule(10s, [this](TaskContext context)
+                {
+                    SummonPortalDemon(NPC_INVADING_FELGUARD, 0);
+                    SummonPortalDemon(NPC_INVADING_FELGUARD, 1);
+                    _deadMinionCounter = 0;
+                    context.Repeat();
+                });
+
+                _scheduler.Schedule(18s, [this](TaskContext context)
+                {
+                    if (roll_chance_i(50))
+                    {
+                        SummonPortalDemon(NPC_INVADING_FELHUNTER, 0);
+                        SummonPortalDemon(NPC_INVADING_FELHUNTER, 1);
+                    }
+                    else
+                    {
+                        SummonPortalDemon(NPC_PORTAL_HOUND, 0);
+                        SummonPortalDemon(NPC_PORTAL_HOUND, 1);
+                    }
+
+                    context.Repeat();
+                });
+
+                _scheduler.Schedule(30s, [this](TaskContext context)
+                {
+                    SummonPortalDemon(NPC_INVADING_ANGUISHER, 0);
+                    SummonPortalDemon(NPC_INVADING_ANGUISHER, 1);
+                    context.Repeat();
+                });
+
+                _scheduler.Schedule(60s, [this](TaskContext context)
+                {
+                    SummonPortalDemon(NPC_FELGUARD_LIEUTENANT, 2);
+                    context.Repeat();
+                });
+
+                _scheduler.Schedule(20s, [this, _infernalTriggerPos, _infernalDestPos](TaskContext context)
+                {
+                    for (uint8 i = urand(0, 3); i < 4; i++)
+                    {
+                        SummonInfernalRain(_infernalTriggerPos[i], _infernalDestPos[i]);
+                    }
+
+                    context.Repeat(30s, 60s);
+                });
+            }
         }
 
         void SummonInfernalRain(Position pos, Position dest)
@@ -584,6 +546,102 @@ public:
                 {
                     me->SummonCreature(NPC_INVADING_INFERNAL, dest);
                 }, 5s);
+            }
+        }
+
+        void SummonFriendlyNPCs()
+        {
+            Position const _argentProtectorPositions[9] =
+            {
+                { -11808.666992f, -3206.407227f, -29.388878f, 3.431497f },
+                { -11809.618164f, -3203.834473f, -29.247328f, 3.348245f },
+                { -11810.923828f, -3201.016846f, -29.976776f, 3.538312f },
+                { -11797.455078f, -3203.081055f, -28.437138f, 3.457416f },
+                { -11798.879883f, -3199.793701f, -28.107952f, 3.543025f },
+                { -11800.028320f, -3196.452637f, -28.509819f, 3.538312f },
+                { -11805.366211f, -3198.688721f, -29.207794f, 3.538312f },
+                { -11803.918945f, -3201.932617f, -28.675598f, 3.543025f },
+                { -11802.583984f, -3204.756836f, -28.891459f, 3.457416f },
+            };
+
+            Position const _stormwindMarshals[6] =
+            {
+                { -11832.259766f, -3196.820801f, -30.171431f, 3.247656f },
+                { -11832.734375f, -3204.129883f, -30.501616f, 3.132202f },
+                { -11832.288086f, -3199.888916f, -30.269533f, 3.198176f },
+                { -11835.124023f, -3199.776855f, -30.081173f, 3.213420f },
+                { -11834.855469f, -3196.740723f, -30.022821f, 3.156872f },
+                { -11834.820312f, -3203.186523f, -30.302736f, 3.144305f },
+            };
+
+            Position const _thunderbluffHunters[6] =
+            {
+                { -11843.174805f, -3176.412598f, -28.853539f, 5.226863f },
+                { -11850.358398f, -3176.458496f, -28.090700f, 4.995171f },
+                { -11855.361328f, -3176.151611f, -27.311512f, 5.097272f },
+                { -11840.394531f, -3170.019287f, -29.219015f, 4.629200f },
+                { -11848.649414f, -3169.063477f, -28.248203f, 4.783135f },
+                { -11855.245117f, -3166.247803f, -27.773533f, 4.892200f }
+            };
+
+            Position const _azuremystVindicatorPos[6] =
+            {
+                { -11852.507812f, -3230.814941f, -25.037802f, 1.870232f },
+                { -11848.397461f, -3229.869629f, -25.696739f, 1.501095f },
+                { -11843.356445f, -3229.766113f, -26.406046f, 1.660531f },
+                { -11842.769531f, -3236.298584f, -25.826141f, 1.660531f },
+                { -11848.006836f, -3235.759766f, -25.197475f, 1.596914f },
+                { -11854.534180f, -3234.660645f, -24.871737f, 1.314171f }
+            };
+
+            Position const _argentHunter[6] =
+            {
+                { -11823.658203f, -3186.115479f, -30.234430f, 3.629969f },
+                { -11825.404297f, -3183.600830f, -29.367455f, 3.649604f },
+                { -11827.452148f, -3181.226807f, -29.720917f, 3.698299f },
+                { -11824.925781f, -3168.900391f, -30.088284f, 4.053295f },
+                { -11827.259766f, -3166.896240f, -30.524405f, 4.057221f },
+                { -11829.310547f, -3165.329834f, -30.430052f, 4.057221f }
+            };
+
+            Position const _argentBowsman[6] =
+            {
+                { -11822.590820f, -3202.611816f, -31.032156f, 3.263978f },
+                { -11822.884766f, -3199.638184f, -30.985357f, 3.256124f },
+                { -11823.301758f, -3196.711182f, -30.834106f, 3.256124f },
+                { -11819.934570f, -3220.567383f, -31.033857f, 2.770744f },
+                { -11818.669922f, -3218.126953f, -31.196154f, 2.832006f },
+                { -11818.377930f, -3215.409668f, -31.301699f, 2.847713f }
+            };
+
+            for (Position const pos : _argentProtectorPositions)
+            {
+                me->SummonCreature(NPC_ARGENT_PROTECTOR, pos);
+            }
+
+            for (Position const pos : _stormwindMarshals)
+            {
+                me->SummonCreature(NPC_STORMWIND_MARSHAL, pos);
+            }
+
+            for (Position const pos : _thunderbluffHunters)
+            {
+                me->SummonCreature(NPC_THUNDERBLUFF_HUNTER, pos);
+            }
+
+            for (Position const pos : _azuremystVindicatorPos)
+            {
+                me->SummonCreature(NPC_AZUREMYST_VINDICATOR, pos);
+            }
+
+            for (Position const pos : _argentHunter)
+            {
+                me->SummonCreature(NPC_ARGENT_HUNTER, pos);
+            }
+
+            for (Position const pos : _argentBowsman)
+            {
+                me->SummonCreature(NPC_ARGENT_BOWSMAN, pos);
             }
         }
 
@@ -627,6 +685,11 @@ public:
                 case NPC_INVADING_FELGUARD:
                 case NPC_INVADING_FELHUNTER:
                 case NPC_INVADING_ANGUISHER:
+                case NPC_INVADING_INFERNAL:
+                case NPC_INVADING_VOIDWALKER:
+                case NPC_FELGUARD_LIEUTENANT:
+                case NPC_PORTAL_HOUND:
+                    summon->DespawnOrUnsummon(5000);
                     _deadMinionCounter++;
                     break;
                 case NPC_ARGENT_PROTECTOR:
