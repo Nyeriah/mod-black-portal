@@ -291,6 +291,7 @@ enum BlackportalEvent
     ACTION_RESET       = 2,
     ACTION_INFERNAL_STORM = 3,
     ACTION_START_POST_EVENT = 4,
+    ACTION_SPAWN_MINIONS    = 5,
 
     GROUP_COMBAT       = 1,
 
@@ -368,7 +369,7 @@ public:
             }
         }
 
-        void SetData(uint32 data, uint32 /*index*/) override
+        void SetData(uint32 data, uint32 index) override
         {
             Position const _infernalTriggerPos[4] =
             {
@@ -536,6 +537,18 @@ public:
 
                     context.Repeat(30s, 60s);
                 });
+            }
+            else if (data == ACTION_SPAWN_MINIONS)
+            {
+                std::vector minions = { NPC_INVADING_FELGUARD, NPC_INVADING_ANGUISHER, NPC_INVADING_FELHUNTER, NPC_INVADING_VOIDWALKER, NPC_FELGUARD_LIEUTENANT };
+
+                if (index > 4)
+                {
+                    index = 0;
+                }
+
+                SummonPortalDemon(minions[index], 0);
+                SummonPortalDemon(minions[index], 1);
             }
         }
 
