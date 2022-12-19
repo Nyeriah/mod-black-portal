@@ -749,21 +749,24 @@ public:
                     return;
             }
 
-            if (_deadMinionCounter > 50 && !_bossSpawned)
+            if (!sConfigMgr->GetOption<bool>("ModBlackPortal.EnablePostEvent", false))
             {
-                if (_dreadknightCounter > 2)
+                if (_deadMinionCounter > 50 && !_bossSpawned)
                 {
-                    SummonPortalDemon(NPC_PORTAL_BOSS, 2);
-                    _bossSpawned = true;
-                    _deadMinionCounter = 0;
-                    _scheduler.DelayAll(1min);
-                    return;
-                }
+                    if (_dreadknightCounter > 2)
+                    {
+                        SummonPortalDemon(NPC_PORTAL_BOSS, 2);
+                        _bossSpawned = true;
+                        _deadMinionCounter = 0;
+                        _scheduler.DelayAll(1min);
+                        return;
+                    }
 
-                _scheduler.DelayAll(30s);
-                SummonPortalDemon(NPC_DREADKNIGHT, 2);
-                _deadMinionCounter = 0;
-                _dreadknightCounter++;
+                    _scheduler.DelayAll(30s);
+                    SummonPortalDemon(NPC_DREADKNIGHT, 2);
+                    _deadMinionCounter = 0;
+                    _dreadknightCounter++;
+                }
             }
         }
 
